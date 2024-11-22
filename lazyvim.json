@@ -1,0 +1,11 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.luasnip",
+    "lazyvim.plugins.extras.editor.overseer",
+    "lazyvim.plugins.extras.formatting.black"
+  ],
+  "news": {
+    "NEWS.md": "7429"
+  },
+  "version": 7
+}
