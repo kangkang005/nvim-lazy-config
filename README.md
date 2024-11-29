@@ -21,7 +21,7 @@ Neovim's configurations are located under the following paths, depending on your
 
 Clone configurations to your computer:
 
-```bash
+```sh
 # in linux
 git clone https://github.com/kangkang005/nvim-lazy-config.git ~/.config/nvim
 ```
@@ -72,4 +72,19 @@ return {
 ui/sidebar.lua
 task/asynctasks.lua
 copilot.lua
+```
+
+# Other
+
+## runtimepath(rtp)
+
+You can get your current runtimepath via Neovim API with `nvim_list_runtime_paths()` function:
+
+```lua
+:lua print(vim.inspect(vim.api.nvim_list_runtime_paths()))
+```
+You can add path to runtimepath:
+
+```lua
+vim.opt.runtimepath:append(',~/.config/nvim/lua')
 ```

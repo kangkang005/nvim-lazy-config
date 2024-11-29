@@ -1,13 +1,12 @@
 -- A pretty window for previewing, navigating and editing your LSP locations in one place, inspired by vscode's peek preview.
 
-vim.keymap.set("n", "<leader>gD", "<CMD>Glance definitions<CR>", { desc = "Glance preview definitions" })
-vim.keymap.set("n", "<leader>gR", "<CMD>Glance references<CR>", { desc = "Glance preview references" })
-vim.keymap.set("n", "<leader>gY", "<CMD>Glance type_definitions<CR>", { desc = "Glance preview type definitions" })
-vim.keymap.set("n", "<leader>gM", "<CMD>Glance implementations<CR>", { desc = "Glance preview implementations" })
-
 return {
   "dnlhc/glance.nvim",
   config = function()
+    vim.keymap.set("n", "<leader>gD", "<CMD>Glance definitions<CR>", { desc = "Glance preview definitions" })
+    vim.keymap.set("n", "<leader>gR", "<CMD>Glance references<CR>", { desc = "Glance preview references" })
+    vim.keymap.set("n", "<leader>gY", "<CMD>Glance type_definitions<CR>", { desc = "Glance preview type definitions" })
+    vim.keymap.set("n", "<leader>gM", "<CMD>Glance implementations<CR>", { desc = "Glance preview implementations" })
     -- Lua configuration
     local glance = require("glance")
     local actions = glance.actions

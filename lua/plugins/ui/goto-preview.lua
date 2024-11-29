@@ -1,37 +1,38 @@
 -- previewing native LSP's goto definition, type definition, implementation, declaration and references calls in floating windows.
 -- Neovim >= 0.5.1
 --
--- keymap
-vim.keymap.set(
-  "n",
-  "gpd",
-  "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
-  { desc = "goto preview definition" }
-)
-vim.keymap.set(
-  "n",
-  "gpt",
-  "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
-  { desc = "goto preview implementation" }
-)
-vim.keymap.set(
-  "n",
-  "gpD",
-  "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
-  { desc = "goto preview declaration" }
-)
-vim.keymap.set("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", {
-  desc = "goto preview references",
-})
-vim.keymap.set("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", {
-  desc = "close goto preview",
-})
 
 return {
   "rmagatti/goto-preview",
   event = "BufEnter",
 
   config = function()
+    -- keymap
+    vim.keymap.set(
+      "n",
+      "gpd",
+      "<cmd>lua require('goto-preview').goto_preview_definition()<CR>",
+      { desc = "goto preview definition" }
+    )
+    vim.keymap.set(
+      "n",
+      "gpt",
+      "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>",
+      { desc = "goto preview implementation" }
+    )
+    vim.keymap.set(
+      "n",
+      "gpD",
+      "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>",
+      { desc = "goto preview declaration" }
+    )
+    vim.keymap.set("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>", {
+      desc = "goto preview references",
+    })
+    vim.keymap.set("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", {
+      desc = "close goto preview",
+    })
+
     require("goto-preview").setup({
       width = 120, -- Width of the floating window
       height = 15, -- Height of the floating window

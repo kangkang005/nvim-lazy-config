@@ -1,15 +1,15 @@
 -- Tab Quick Navigation
 
--- keymap setting
-vim.keymap.set("n", "[b", "<Plug>(CybuPrev)", { desc = "tab quick prev" })
-vim.keymap.set("n", "]b", "<Plug>(CybuNext)", { desc = "tab quick next" })
-vim.keymap.set("n", "<s-tab>", "<plug>(CybuLastusedPrev)", { desc = "tab popup prev" })
-vim.keymap.set("n", "<tab>", "<plug>(CybuLastusedNext)", { desc = "tab popup next" })
-
 return {
   "ghillb/cybu.nvim",
 
   config = function()
+    -- keymap setting
+    vim.keymap.set("n", "[b", "<Plug>(CybuPrev)", { desc = "tab quick prev" })
+    vim.keymap.set("n", "]b", "<Plug>(CybuNext)", { desc = "tab quick next" })
+    vim.keymap.set("n", "<s-tab>", "<plug>(CybuLastusedPrev)", { desc = "tab popup prev" })
+    vim.keymap.set("n", "<tab>", "<plug>(CybuLastusedNext)", { desc = "tab popup next" })
+
     require("cybu").setup({
       position = {
         relative_to = "win", -- win, editor, cursor
@@ -18,7 +18,7 @@ return {
         -- bottomleft, bottomcenter, bottomright
         vertical_offset = 10, -- vertical offset from anchor in lines
         horizontal_offset = 0, -- vertical offset from anchor in columns
-        max_win_height = 5, -- height of cybu window in lines
+        max_win_height = 10, -- height of cybu window in lines
         max_win_width = 0.5, -- integer for absolute in columns
         -- float for relative to win/editor width
       },
@@ -29,7 +29,10 @@ return {
         separator = " ", -- string used as separator
         prefix = "…", -- string used as prefix for truncated paths
         padding = 1, -- left & right padding in number of spaces
-        hide_buffer_id = true, -- hide buffer IDs in window
+        hide_buffer_id = false, -- hide buffer IDs in window
+        infobar = {
+          enabled = true,
+        },
         devicons = {
           enabled = true, -- enable or disable web dev icons
           colored = true, -- enable color for web dev icons
