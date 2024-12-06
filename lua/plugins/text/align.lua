@@ -1,8 +1,9 @@
+-- A minimal plugin for NeoVim for aligning lines
 return {
   "Vonr/align.nvim",
   branch = "v2",
   lazy = true,
-  init = function()
+  config = function()
     -- Aligns to 1 character
     vim.keymap.set("x", "gAa", function()
       require("align").align_to_char({
@@ -48,5 +49,7 @@ return {
       local a = require("align")
       a.operator(a.align_to_char)
     end, { noremap = true, silent = true, desc = "Algins a paragraph to 1 char" })
+
+    require("align").setup()
   end,
 }

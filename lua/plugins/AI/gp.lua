@@ -10,14 +10,17 @@ return {
       curl_params = {},
 
       -- default agent names set during startup, if 'nil' last used agent is used
-      default_command_agent = "CodeGPT4o-mini",
-      default_chat_agent = "ChatGPT4o-mini",
+      -- default_command_agent = "CodeGPT4o-mini",
+      -- default_chat_agent = "ChatGPT4o-mini",
+      -- default_command_agent = "CodeGPT3-5",
+      -- default_chat_agent = "ChatGPT3-5",
 
       openai_api_key = os.getenv("OPENAI_API_KEY"),
       providers = {
         openai = {
           disable = false,
-          endpoint = "https://free.v36.cm/v1/chat/completions",
+          -- endpoint = "https://free.v36.cm/v1/chat/completions",
+          endpoint = "https://api.vveai.com/v1/chat/completions",
           -- secret = os.getenv("OPENAI_API_KEY"),
         },
       },
@@ -45,7 +48,7 @@ return {
           system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {
-          name = "ChatGPT3.5",
+          name = "ChatGPT3-5",
           provider = "openai",
           chat = true,
           command = false,
@@ -75,7 +78,7 @@ return {
           system_prompt = "Please return ONLY code snippets.\nSTART AND END YOUR ANSWER WITH:\n\n```",
         },
         {
-          name = "CodeGPT3.5",
+          name = "CodeGPT3-5",
           provider = "openai",
           chat = false,
           command = true,

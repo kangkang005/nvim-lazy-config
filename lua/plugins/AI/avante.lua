@@ -84,9 +84,10 @@ return {
     ---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
     provider = "openai",
     openai = {
-      -- model = "gpt-3.5-turbo",
-      model = "gpt-4o-mini",
-      endpoint = "https://free.v36.cm/v1/",
+      -- model = "gpt-4o-mini",
+      -- endpoint = "https://free.v36.cm/v1/",
+      model = "gpt-3.5-turbo",
+      endpoint = "https://api.vveai.com/v1/",
       timeout = 30000, -- Timeout in milliseconds
       temperature = 0,
       max_tokens = 4096,

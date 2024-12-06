@@ -11,45 +11,90 @@ return {
         function()
           require("dap").step_over()
         end,
-        desc = "单步调试",
+        desc = "step debug",
       },
       {
         "<C-f10>",
         function()
           require("dap").step_into()
         end,
-        desc = "步入",
+        desc = "step in",
       },
       {
         "<C-f>",
         function()
           require("dap").step_out()
         end,
-        desc = "步出",
+        desc = "step out",
       },
       {
         "<C-f5>",
         function()
           require("dap").terminate()
         end,
-        desc = "终止程序",
+        desc = "stop",
       },
     },
     config = function()
       local dap = require("dap")
-      dap.adapters.gdb =
-        { type = "executable", executable = { command = vim.fn.exepath("gdb"), args = { "-i", "dap" } } }
+
+      dap.adapters.gdb = {
+        type = "executable",
+        command = "gdb",
+        args = { "--interpreter=dap", "--eval-command", "set print pretty on" },
+      }
+
+      dap.adapters.lldb = {
+        type = "executable",
+        command = "lldb",
+      }
+
       dap.configurations.c = {
-        name = "Launch file",
-        type = "gdb",
-        request = "launch",
-        program = function()
-          return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        gdbpath = function()
-          return "/usr/bin/gdb"
-        end,
-        cwd = "${workspaceFolder}",
+        {
+          name = "Launch file",
+          type = "gdb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          name = "Select and attach to process",
+          type = "gdb",
+          request = "attach",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          pid = function()
+            local name = vim.fn.input("Executable name (filter): ")
+            return require("dap.utils").pick_process({ filter = name })
+          end,
+          cwd = "${workspaceFolder}",
+        },
+        {
+          name = "Attach to gdbserver :1234",
+          type = "gdb",
+          request = "attach",
+          target = "localhost:1234",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+        },
+      }
+
+      dap.configurations.cpp = {
+        {
+          name = "Launch file",
+          type = "gdb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = true,
+        },
       }
     end,
   },
@@ -59,7 +104,7 @@ return {
       "mfussenegger/nvim-dap",
       "nvim-neotest/nvim-nio",
     },
-    opts = function()
+    config = function()
       local dap = require("dap")
       local dapui = require("dapui")
       dap.listeners.before.attach.dapui_config = function()
@@ -74,6 +119,75 @@ return {
       dap.listeners.before.event_exited.dapui_config = function()
         dapui.close()
       end
+      dapui.setup({
+        icons = {
+          expanded = "",
+          collapsed = "",
+          current_frame = "",
+        },
+
+        mappings = {
+          -- Use a table to apply multiple mappings
+          expand = { "<CR>", "<2-LeftMouse>" },
+          open = "o",
+          remove = "d",
+          edit = "e",
+          repl = "r",
+          toggle = "t",
+        },
+
+        layouts = {
+          {
+            elements = {
+              {
+                id = "scopes",
+                size = 0.35,
+              },
+              { id = "stacks", size = 0.35 },
+              { id = "watches", size = 0.15 },
+              { id = "breakpoints", size = 0.15 },
+            },
+            size = 40,
+            position = "left",
+          },
+          {
+            elements = {
+              "repl",
+              -- "console",
+            },
+            size = 5,
+            -- size = 0.25, -- 25% of total lines
+            position = "bottom",
+          },
+        },
+
+        controls = {
+          -- Requires Neovim nightly (or 0.8 when released)
+          enabled = true,
+          -- Display controls in this element
+          element = "repl",
+          icons = {
+            pause = "",
+            play = "",
+            step_into = "",
+            step_over = "",
+            step_out = "",
+            step_back = "",
+            run_last = "",
+            terminate = "",
+          },
+        },
+
+        floating = {
+          max_height = nil, -- These can be integers or a float between 0 and 1.
+          max_width = nil, -- Floats will be treated as percentage of your screen.
+          border = "single", -- Border style. Can be "single", "double" or "rounded"
+          mappings = {
+            close = { "q", "<Esc>" },
+          },
+        },
+        windows = { indent = 1 },
+      })
       return {
         enabled = true, -- enable this plugin (the default)
         enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)

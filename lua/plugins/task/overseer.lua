@@ -1,3 +1,4 @@
+-- A task runner and job management plugin for Neovim
 vim.api.nvim_create_user_command("WatchRun", function()
   local overseer = require("overseer")
   overseer.run_template({ name = "run script" }, function(task)
@@ -24,11 +25,11 @@ return {
         -- load your default shell before starting the task
         use_shell = false,
         -- overwrite the default toggleterm "direction" parameter
-        direction = "float",
+        -- direction = "float",
         -- overwrite the default toggleterm "highlights" parameter
         highlights = nil,
         -- overwrite the default toggleterm "auto_scroll" parameter
-        auto_scroll = nil,
+        auto_scroll = false,
         -- have the toggleterm window close and delete the terminal buffer
         -- automatically after the task exits
         close_on_exit = false,
@@ -49,11 +50,14 @@ return {
       -- default terminal strategy
       strategy = "terminal",
       -- Template modules to load
+      -- Template path: lua/overseer/template
       templates = {
         "builtin",
         "run_script",
         "c.build",
         "c.run",
+        "cpp.build",
+        "cpp.build_and_run",
       },
       -- Directories where overseer will look for template definitions (relative to rtp)
       template_dirs = { "overseer.template" },
