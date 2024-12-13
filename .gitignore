@@ -6,3 +6,5 @@ debug
 foo.*
 *.log
 data
+.gp.md
+.neoconf.json

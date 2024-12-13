@@ -9,6 +9,7 @@ return {
       { "<leader>m", group = "markdown", desc = "markdown", icon = "⌨️" },
       { "<leader>t", group = "other", desc = "toggleterm, table-mode", icon = "⌨️" },
       { "<leader>a", group = "avante(AI)", desc = "avante(AI)", icon = "🤖" },
+      { "<leader>o", group = "overseer/orgmode", desc = "overseer/orgmode", icon = "🐎" },
       { "gA", group = "algin", desc = "algin", icon = "⌨️" },
       { "gp", group = "goto code", desc = "goto code", icon = "⌨️" },
 

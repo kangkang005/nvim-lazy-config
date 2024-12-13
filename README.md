@@ -19,6 +19,8 @@ Neovim's configurations are located under the following paths, depending on your
 | MacOS   | $XDG_CONFIG_HOME/nvim, `~/.config/nvim` |
 | Windows | %userprofile%\AppData\Local\nvim\       |
 
+You can use `:help base-directories` to get more information about configuration location.
+
 Clone configurations to your computer:
 
 ```sh
@@ -70,6 +72,7 @@ return {
 
 ```text
 ui/sidebar.lua
+ui/pretty-fold.lua
 task/asynctasks.lua
 copilot.lua
 ```
