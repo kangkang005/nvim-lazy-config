@@ -19,12 +19,22 @@ return {
       providers = {
         openai = {
           disable = false,
-          -- endpoint = "https://free.v36.cm/v1/chat/completions",
-          endpoint = "https://api.vveai.com/v1/chat/completions",
+          -- endpoint = "https://api.vveai.com/v1/chat/completions",
+          endpoint = "https://api.deepseek.com/v1/chat/completions",
           -- secret = os.getenv("OPENAI_API_KEY"),
         },
       },
       agents = {
+        {
+          name = "Chat-deepseek",
+          provider = "openai",
+          chat = false,
+          command = true,
+          -- string with model name or table with model name and parameters
+          model = { model = "deepseek-chat", temperature = 1.3 },
+          -- system prompt (use this to specify the persona/role of the AI)
+          system_prompt = require("gp.defaults").chat_system_prompt,
+        },
         {
           name = "ChatGPT4o",
           disable = true,
@@ -55,6 +65,16 @@ return {
           -- string with model name or table with model name and parameters
           model = { mode = "gpt-3.5-turbo", temperature = 1.1, top_p = 1 },
           -- system_prompt = "Answer any query with just: Sure thing..",
+          system_prompt = require("gp.defaults").chat_system_prompt,
+        },
+        {
+          name = "Code-deepseek",
+          provider = "openai",
+          chat = false,
+          command = true,
+          -- string with model name or table with model name and parameters
+          model = { model = "deepseek-coder", temperature = 0 },
+          -- system prompt (use this to specify the persona/role of the AI)
           system_prompt = require("gp.defaults").chat_system_prompt,
         },
         {

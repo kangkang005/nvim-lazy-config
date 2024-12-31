@@ -19,10 +19,12 @@ return {
     language = "English", -- Default is "English"
     strategies = {
       chat = {
-        adapter = "openai",
+        -- adapter = "openai",
+        adapter = "deepseek",
       },
       inline = {
-        adapter = "openai",
+        -- adapter = "openai",
+        adapter = "deepseek",
       },
     },
     adapters = {
@@ -34,15 +36,8 @@ return {
         return require("codecompanion.adapters").extend("openai", {
           env = {
             -- endpoint = "https://free.v36.cm",
-            -- endpoint = "https://free.v36.cm/v1/",
-            -- endpoint = "https://free.v36.cm/v1/chat/completions",
-            -- url = "https://free.v36.cm/v1",
-            --
-            url = "https://free.v36.cm",
-            -- chat_url = "/v1/",
-            --
-            chat_url = "/v1/chat/completions",
-            -- chat_url = "/chat/completions",
+            url = "https://api.deepseek.com",
+            -- chat_url = "/v1/chat/completions",
             -- api_key = "sk-JzLtwPzMC1DWri5T29D73fDaD4114a2183857bA6644bD0D6",
             api_key = function()
               return os.getenv("OPENAI_API_KEY")
@@ -50,8 +45,27 @@ return {
           },
           schema = {
             model = {
-              default = "gpt-4o-mini",
-              -- default = "gpt-3.5-turbo",
+              -- default = "gpt-4o-mini",
+              default = "gpt-3.5-turbo",
+            },
+          },
+        })
+      end,
+      deepseek = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+          env = {
+            url = "https://api.deepseek.com",
+            chat_url = "/v1/chat/completions",
+            api_key = function()
+              return os.getenv("OPENAI_API_KEY")
+            end,
+          },
+          schema = {
+            model = {
+              default = "deepseek-chat",
+            },
+            temperature = {
+              default = 1.3,
             },
           },
         })
