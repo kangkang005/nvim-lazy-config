@@ -54,6 +54,10 @@ require("lazy").setup({
 
 Now, You can add plugin to new directory.
 
+## Where Plugin
+
+Lazyvim install plugin to `~/.local/share/nvim/lazy`.
+
 ## Added Plugin
 
 Add new configuration in `lua/plugins/*` files, which will be auto loaded using `lua/config/lazy.nvim`.
@@ -74,7 +78,7 @@ return {
 ui/sidebar.lua
 ui/pretty-fold.lua
 task/asynctasks.lua
-copilot.lua
+AI/copilot.lua
 ```
 
 # Other
